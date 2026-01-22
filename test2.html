@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حلواني أبو عادل – فرع البدرشين</title>
+  <style>
+    :root{
+      --black:#0b0b0b;
+      --gold:#d4af37;
+      --muted:#bfae6a;
+      --card:#141414;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: "Cairo", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:var(--black); color:#fff;
+    }
+    header{
+      padding:28px 16px; text-align:center; border-bottom:1px solid #1f1f1f;
+      background:linear-gradient(180deg, #0b0b0b 0%, #0f0f0f 100%);
+    }
+    header h1{margin:0; color:var(--gold); letter-spacing:0.5px}
+    header p{margin:8px 0 0; color:#ddd}
+    .cta{
+      position:fixed; left:16px; bottom:16px; z-index:10;
+      background:var(--gold); color:#000; text-decoration:none; font-weight:700;
+      padding:14px 18px; border-radius:999px; box-shadow:0 10px 30px rgba(212,175,55,.35);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:24px 16px}
+    .info{display:flex; gap:12px; justify-content:center; margin:8px 0 24px}
+    .badge{border:1px solid #222; padding:8px 12px; border-radius:999px; color:#eee}
+    h2{color:var(--gold); margin:32px 0 16px}
+    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px}
+    .card{
+      background:var(--card); border:1px solid #1f1f1f; border-radius:16px; overflow:hidden;
+      transition:transform .2s ease, box-shadow .2s ease
+    }
+    .card:hover{transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,0,0,.35)}
+    .img{height:160px; background:#222; display:flex; align-items:center; justify-content:center; color:#999}
+    .card .content{padding:12px}
+    .price{color:var(--muted); font-weight:700}
+    footer{border-top:1px solid #1f1f1f; padding:16px; text-align:center; color:#aaa}
+    @media (max-width:480px){ .img{height:140px} }
+  </style>
+</head>
+<body>
+  <!-- زر واتساب (نسخة مبدئية) -->
+  <a class="cta" href="#">اطلب الآن</a>
+
+  <header>
+    <h1>حلواني أبو عادل</h1>
+    <p>فرع البدرشين</p>
+    <div class="info">
+      <span class="badge">🚚 توصيل</span>
+      <span class="badge">🏪 استلام من المحل</span>
+      <span class="badge">نسخة مبدئية للعرض</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h2>حلويات شرقي</h2>
+    <section class="grid">
+<img src="images/konafa.jpg.jpg" alt="اسم المنتج" style="width:100%; height:160px; object-fit:cover; border-radius:8px">
+        <article class="card"><img src="images/basbosa.jpg" alt="بسبوسة" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>بسبوسة</strong><div class="price">30 جنيه</div></div></article>
+      <article class="card"><img src="images/baklawa.jpg" alt="بقلاوة" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>بقلاوة</strong><div class="price">35 جنيه</div></div></article>
+    </section>
+
+    <h2>حلويات غربي</h2>
+    <section class="grid">
+      <article class="card"><img src="images/cheesecake.jpg" alt="تشيز كيك" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>تشيز كيك</strong><div class="price">50 جنيه</div></div></article>
+      <article class="card"><img src="images/mini_gateau.jpg" alt="ميني جاتوه" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>ميني جاتوه</strong><div class="price">40 جنيه</div></div></article>
+    </section>
+
+    <h2>تورت</h2>
+    <section class="grid">
+      <article class="card"><img src="images/choco_cake.jpg" alt="تورت شوكولاتة" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>تورت شوكولاتة</strong><div class="price">120 جنيه</div></div></article>
+      <article class="card"><img src="images/fruit_cake.jpg" alt="تورت فواكه" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>تورت فواكه</strong><div class="price">110 جنيه</div></div></article>
+    </section>
+
+    <h2>مخبوزات</h2>
+    <section class="grid">
+      <article class="card"><img src="images/croissant.jpg" alt="كرواسون" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>كرواسون</strong><div class="price">20 جنيه</div></div></article>
+      <article class="card"><img src="images/pate.jpg" alt="باتيه" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>باتيه</strong><div class="price">25 جنيه</div></div></article>
+    </section>
+
+    <h2>شوكولاتات</h2>
+    <section class="grid">
+      <article class="card"><img src="images/choco_box.jpg" alt="بوكس شوكولاتة" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>بوكس شوكولاتة</strong><div class="price">60 جنيه</div></div></article>
+      <article class="card"><img src="images/choco_piece.jpg" alt="قطع شوكولاتة" style="width:100%; height:160px; object-fit:cover; border-radius:8px"><div class="content"><strong>قطع شوكولاتة</strong><div class="price">15 جنيه</div></div></article>
+    </section>
+  </main>
+
+  <footer>
+    © حلواني أبو عادل – فرع البدرشين
+  </footer>
+</body>
+</html>
