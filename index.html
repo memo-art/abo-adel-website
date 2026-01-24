@@ -92,6 +92,33 @@
 html{
   scroll-behavior: smooth;
 }
+.hero{
+  height:60vh;
+  background-image: url("images/header.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+  color:#fff;
+  position:relative;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+}
+
+.hero *{
+  position:relative;
+  z-index:1;
+}
 
     
   </style>
@@ -347,6 +374,7 @@ html{
   </footer>
 </body>
 </html>
+
 
 
 
