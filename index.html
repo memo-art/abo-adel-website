@@ -562,8 +562,8 @@ let total = 0;
 function addToCart(name, price){
 
   cart.push({
-    name:name,
-    price:price
+    name: name,
+    price: price
   });
 
   total += price;
@@ -578,15 +578,15 @@ function updateCart(){
 
   cartItems.innerHTML = "";
 
-  cart.forEach((item,index) => {
+  cart.forEach((item, index) => {
 
     cartItems.innerHTML += `
 
       <div class="cart-item">
 
-        ${item.name} - ${item.price} ج
-
-        <br>
+        <p>
+          ${item.name} - ${item.price} ج
+        </p>
 
         <button onclick="removeFromCart(${index})"
         style="
@@ -598,9 +598,7 @@ function updateCart(){
           cursor:pointer;
           margin-top:5px;
         ">
-
           حذف
-
         </button>
 
       </div>
@@ -616,7 +614,7 @@ function removeFromCart(index){
 
   total -= cart[index].price;
 
-  cart.splice(index,1);
+  cart.splice(index, 1);
 
   updateCart();
 }
@@ -639,117 +637,17 @@ function sendWhatsAppOrder(){
   let customerPhone =
   document.getElementById("customer-phone").value;
 
-  let message = "طلب جديد:%0A%0A";
+  if(
+    customerName === "" ||
+    customerAddress === "" ||
+    customerPhone === ""
+  ){
 
-  message +=
-  "الاسم: " + customerName + "%0A";
-
-  message +=
-  "العنوان: " + customerAddress + "%0A";
-
-  message +=
-  "رقم الهاتف: " + customerPhone + "%0A%0A";
-
-  cart.forEach(item => {
-
-    message +=
-    `- ${item.name} (${item.price} ج)%0A`;
-
-  });
-
-  message +=
-  `%0Aالإجمالي: ${total} ج`;
-
-  window.open(
-  `https://wa.me/201050225446?text=${message}`
-  );
-}
-
-</script><script>
-
-let cart = [];
-let total = 0;
-
-function addToCart(name, price){
-
-  cart.push({
-    name:name,
-    price:price
-  });
-
-  total += price;
-
-  updateCart();
-}
-
-function updateCart(){
-
-  const cartItems =
-  document.getElementById("cart-items");
-
-  cartItems.innerHTML = "";
-
-  cart.forEach((item,index) => {
-
-    cartItems.innerHTML += `
-
-      <div class="cart-item">
-
-        ${item.name} - ${item.price} ج
-
-        <br>
-
-        <button onclick="removeFromCart(${index})"
-        style="
-          background:red;
-          color:white;
-          border:none;
-          padding:5px 10px;
-          border-radius:8px;
-          cursor:pointer;
-          margin-top:5px;
-        ">
-
-          حذف
-
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-  document.getElementById("total").innerText = total;
-}
-
-function removeFromCart(index){
-
-  total -= cart[index].price;
-
-  cart.splice(index,1);
-
-  updateCart();
-}
-
-function sendWhatsAppOrder(){
-
-  if(cart.length === 0){
-
-    alert("السلة فارغة");
+    alert("من فضلك املأ كل البيانات");
 
     return;
   }
 
-  let customerName =
-  document.getElementById("customer-name").value;
-
-  let customerAddress =
-  document.getElementById("customer-address").value;
-
-  let customerPhone =
-  document.getElementById("customer-phone").value;
-
   let message = "طلب جديد:%0A%0A";
 
   message +=
@@ -764,15 +662,17 @@ function sendWhatsAppOrder(){
   cart.forEach(item => {
 
     message +=
-    `- ${item.name} (${item.price} ج)%0A`;
+    "- " + item.name +
+    " (" + item.price + " ج)%0A";
 
   });
 
   message +=
-  `%0Aالإجمالي: ${total} ج`;
+  "%0Aالإجمالي: " + total + " ج";
 
   window.open(
-  `https://wa.me/201050225446?text=${message}`
+  "https://wa.me/201050225446?text=" + message,
+  "_blank"
   );
 }
 
