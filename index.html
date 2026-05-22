@@ -554,7 +554,8 @@ onclick="addToCart('نص بقلاوة عين جمل',210)">
     إرسال الطلب
   </button>
 </div>
-  <script>
+<script>
+
 let cart = [];
 let total = 0;
 
@@ -573,37 +574,69 @@ function addToCart(name, price){
 function updateCart(){
 
   const cartItems = document.getElementById("cart-items");
+
   cartItems.innerHTML = "";
 
-  cart.forEach(item => {
+  cart.forEach((item,index) => {
 
     cartItems.innerHTML += `
+
       <div class="cart-item">
+
         ${item.name} - ${item.price} ج
+
+        <button onclick="removeFromCart(${index})"
+        style="
+          background:red;
+          color:white;
+          border:none;
+          padding:5px 10px;
+          border-radius:8px;
+          cursor:pointer;
+          margin-top:5px;
+        ">
+          حذف
+        </button>
+
       </div>
+
     `;
   });
 
   document.getElementById("total").innerText = total;
 }
 
+function removeFromCart(index){
+
+  total -= cart[index].price;
+
+  cart.splice(index,1);
+
+  updateCart();
+}
+
 function sendWhatsAppOrder(){
 
   if(cart.length === 0){
+
     alert("السلة فارغة");
+
     return;
   }
 
   let message = "طلب جديد:%0A%0A";
 
   cart.forEach(item => {
+
     message += `- ${item.name} (${item.price} ج)%0A`;
+
   });
 
   message += `%0Aالإجمالي: ${total} ج`;
 
   window.open(`https://wa.me/201050225446?text=${message}`);
 }
+
 </script>
 </body>
 </html>
