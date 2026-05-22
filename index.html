@@ -502,6 +502,68 @@ html{
   <footer>
     ©  شارع عمرو بن العاص(المستشفى سابقاً)– حلواني أبو عادل – منفذ البدرشين
   </footer>
+<div class="cart-box">
+  <h3>🛒 سلة الطلبات</h3>
+
+  <div id="cart-items"></div>
+
+  <p>الإجمالي: <span id="total">0</span> ج</p>
+
+  <button class="send-order" onclick="sendWhatsAppOrder()">
+    إرسال الطلب
+  </button>
+</div>
+  <script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price){
+
+  cart.push({
+    name:name,
+    price:price
+  });
+
+  total += price;
+
+  updateCart();
+}
+
+function updateCart(){
+
+  const cartItems = document.getElementById("cart-items");
+  cartItems.innerHTML = "";
+
+  cart.forEach(item => {
+
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        ${item.name} - ${item.price} ج
+      </div>
+    `;
+  });
+
+  document.getElementById("total").innerText = total;
+}
+
+function sendWhatsAppOrder(){
+
+  if(cart.length === 0){
+    alert("السلة فارغة");
+    return;
+  }
+
+  let message = "طلب جديد:%0A%0A";
+
+  cart.forEach(item => {
+    message += `- ${item.name} (${item.price} ج)%0A`;
+  });
+
+  message += `%0Aالإجمالي: ${total} ج`;
+
+  window.open(`https://wa.me/201050225446?text=${message}`);
+}
+</script>
 </body>
 </html>
 
