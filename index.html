@@ -543,50 +543,32 @@ onclick="addToCart('نص بقلاوة عين جمل',210)">
   <footer>
     ©  شارع عمرو بن العاص(المستشفى سابقاً)– حلواني أبو عادل – منفذ البدرشين
   </footer>
-<div class="cart-box">
-  <h3>🛒 سلة الطلبات</h3>
-
-  <div id="cart-items"></div>
-
-  <p>الإجمالي: <span id="total">0</span> ج</p>
-
-  <button class="send-order" onclick="sendWhatsAppOrder()">
-    إرسال الطلب
-  </button>
-</div>
 <script>
 
 let cart = [];
 let total = 0;
 
-function addToCart(name, price){
-
+function addToCart(name, price) {
   cart.push({
     name: name,
     price: price
   });
 
   total += price;
-
   updateCart();
 }
 
-function updateCart(){
+function updateCart() {
 
-  const cartItems =
-  document.getElementById("cart-items");
-
+  const cartItems = document.getElementById("cart-items");
   cartItems.innerHTML = "";
 
   cart.forEach((item, index) => {
 
     cartItems.innerHTML += `
-
       <div class="cart-item">
 
-        <p>
-          ${item.name} - ${item.price} ج
-        </p>
+        <p>${item.name} - ${item.price} ج</p>
 
         <button onclick="removeFromCart(${index})"
         style="
@@ -596,13 +578,11 @@ function updateCart(){
           padding:5px 10px;
           border-radius:8px;
           cursor:pointer;
-          margin-top:5px;
         ">
           حذف
         </button>
 
       </div>
-
     `;
 
   });
@@ -610,7 +590,7 @@ function updateCart(){
   document.getElementById("total").innerText = total;
 }
 
-function removeFromCart(index){
+function removeFromCart(index) {
 
   total -= cart[index].price;
 
@@ -619,60 +599,48 @@ function removeFromCart(index){
   updateCart();
 }
 
-function sendWhatsAppOrder(){
+function sendWhatsAppOrder() {
 
-  if(cart.length === 0){
-
+  if (cart.length === 0) {
     alert("السلة فارغة");
-
     return;
   }
 
   let customerName =
-  document.getElementById("customer-name").value;
+    document.getElementById("customer-name").value.trim();
 
   let customerAddress =
-  document.getElementById("customer-address").value;
+    document.getElementById("customer-address").value.trim();
 
   let customerPhone =
-  document.getElementById("customer-phone").value;
+    document.getElementById("customer-phone").value.trim();
 
-  if(
+  if (
     customerName === "" ||
     customerAddress === "" ||
     customerPhone === ""
-  ){
-
-    alert("من فضلك املأ كل البيانات");
-
+  ) {
+    alert("من فضلك اكتب الاسم والعنوان ورقم الهاتف");
     return;
   }
 
-  let message = "طلب جديد:%0A%0A";
-
-  message +=
-  "الاسم: " + customerName + "%0A";
-
-  message +=
-  "العنوان: " + customerAddress + "%0A";
-
-  message +=
-  "رقم الهاتف: " + customerPhone + "%0A%0A";
+  let message =
+    "طلب جديد%0A%0A" +
+    "الاسم: " + customerName + "%0A" +
+    "العنوان: " + customerAddress + "%0A" +
+    "رقم الهاتف: " + customerPhone + "%0A%0A";
 
   cart.forEach(item => {
-
     message +=
-    "- " + item.name +
-    " (" + item.price + " ج)%0A";
-
+      "- " + item.name +
+      " (" + item.price + " ج)%0A";
   });
 
-  message +=
-  "%0Aالإجمالي: " + total + " ج";
+  message += "%0Aالإجمالي: " + total + " ج";
 
   window.open(
-  "https://wa.me/201050225446?text=" + message,
-  "_blank"
+    "https://wa.me/201050225446?text=" + message,
+    "_blank"
   );
 }
 
