@@ -32,11 +32,6 @@
     }
     header h1{margin:0; color:var(--gold); letter-spacing:0.5px}
     header p{margin:8px 0 0; color:#ddd}
-    .cta{
-      position:fixed; left:16px; bottom:16px; z-index:10;
-      background:var(--gold); color:#000; text-decoration:none; font-weight:700;
-      padding:14px 18px; border-radius:999px; box-shadow:0 10px 30px rgba(212,175,55,.35);
-    }
     .wrap{max-width:1100px; margin:0 auto; padding:24px 16px}
     .info{display:flex; gap:12px; justify-content:center; margin:8px 0 24px}
     .badge{border:1px solid #222; padding:8px 12px; border-radius:999px; color:#eee}
@@ -138,8 +133,6 @@
 </head>
 <body>
 
-  <a class="cta" href="https://wa.me/201050225446" target="_blank">واتساب مباشر</a>
-
   <header>
     <h1>حلواني أبو عادل</h1>
     <p>منفذ البدرشين</p>
@@ -152,6 +145,7 @@
   <div class="sections-nav">
     <a href="#eastern">حلويات شرقي</a>
     <a href="#western">حلويات غربي</a>
+    <a href="#torta">تورت</a>
     <a href="#baked">مخبوزات</a>
     <a href="#chocolate">شوكولاتات</a>
   </div>
@@ -360,6 +354,101 @@
       </div>
     </section>
 
+    <!-- قسم التورت الجديد والمعدل -->
+    <h2 id="torta">تورت</h2>
+    <section class="grid">
+      <div class="product">
+        <img src="images/american-rush.jpg" alt="اميركان رش">
+        <p>تورتة اميركان رش</p>
+        <p class="price">530 ج</p>
+        <button class="add-btn" onclick="addToCart('تورتة اميركان رش', 530)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-rocher-half-fruit.jpg" alt="نص روشيه ونص فاكهه">
+        <p>نص روشيه ونص فاكهه</p>
+        <p class="price">490 ج</p>
+        <button class="add-btn" onclick="addToCart('نص روشيه ونص فاكهه', 490)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-fudge-half-fruit.jpg" alt="نص فادج ونص فاكهه">
+        <p>نص فادج ونص فاكهه</p>
+        <p class="price">480 ج</p>
+        <button class="add-btn" onclick="addToCart('نص فادج ونص فاكهه', 480)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/millefeuille-cake-20.jpg" alt="تورته ميلفيه ٢٠*٢٠">
+        <p>تورته ميلفيه ٢٠*٢٠</p>
+        <p class="price">490 ج</p>
+        <button class="add-btn" onclick="addToCart('تورته ميلفيه ٢٠*٢٠', 490)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/torta_4_season_special.jpg" alt="4 سيزون سبيشيال">
+        <p>4 سيزون سبيشيال</p>
+        <p class="price">530 ج</p>
+        <button class="add-btn" onclick="addToCart('4 سيزون سبيشيال', 530)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-nutella-half-fruit.jpg" alt="نص نوتيلا ونص فاكهه">
+        <p>نص نوتيلا ونص فاكهه</p>
+        <p class="price">530 ج</p>
+        <button class="add-btn" onclick="addToCart('نص نوتيلا ونص فاكهه', 530)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-chocolate-half-fruit.jpg" alt="نص شوكولاتة ونص فاكهه">
+        <p>نص شوكولاتة ونص فاكهه</p>
+        <p class="price">490 ج</p>
+        <button class="add-btn" onclick="addToCart('نص شوكولاتة ونص فاكهه', 490)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/mini-american-chocolate.jpg" alt="ميني اميركان شوكلت">
+        <p>ميني اميركان شوكلت</p>
+        <p class="price">440 ج</p>
+        <button class="add-btn" onclick="addToCart('ميني اميركان شوكلت', 440)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/8-season-cake.jpg" alt="8 سيزون">
+        <p>8 سيزون</p>
+        <p class="price">450 ج</p>
+        <button class="add-btn" onclick="addToCart('8 سيزون', 450)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/fudge-cake.jpg" alt="تورته فادج">
+        <p>تورته فادج</p>
+        <p class="price">440 ج</p>
+        <button class="add-btn" onclick="addToCart('تورته فادج', 440)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/chocolate-cake.jpg" alt="شوكلت">
+        <p>تورته شوكلت</p>
+        <p class="price">420 ج</p>
+        <button class="add-btn" onclick="addToCart('تورته شوكلت', 420)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-nutella-half-cream.jpg" alt="نص نوتيلا ونص كريمه">
+        <p>نص نوتيلا ونص كريمه</p>
+        <p class="price">480 ج</p>
+        <button class="add-btn" onclick="addToCart('نص نوتيلا ونص كريمه', 480)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-caramel-half-fruit.jpg" alt="نص كراميل ونص فاكهه">
+        <p>نص كراميل ونص فاكهه</p>
+        <p class="price">480 ج</p>
+        <button class="add-btn" onclick="addToCart('نص كراميل ونص فاكهه', 480)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/fruit-cake.jpg" alt="تورته فواكهه">
+        <p>تورته فواكهه</p>
+        <p class="price">470 ج</p>
+        <button class="add-btn" onclick="addToCart('تورته فواكهه', 470)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-chocolate-half-fruit-30.jpg" alt="نص شوكولاتة ونص فاكهه ٣٠*٣٠">
+        <p>نص شوكولاتة ونص فاكهه ٣٠*٣٠</p>
+        <p class="price">630 ج</p>
+        <button class="add-btn" onclick="addToCart('نص شوكولاتة ونص فاكهه ٣٠*٣٠', 630)">أضف للسلة</button>
+      </div>
+    </section>
+
     <!-- قسم المخبوزات -->
     <h2 id="baked">مخبوزات</h2>
     <section class="grid">
@@ -447,7 +536,6 @@
       <button class="close-cart" onclick="toggleCart()">✕ إغلاق</button>
       <h3>سلة المشتريات</h3>
       
-      <!-- المنتجات المضافة ستظهر هنا -->
       <div id="cart-items"></div>
       
       <p style="font-weight: bold; margin: 15px 0; text-align: center; font-size: 18px; border-top: 1px dashed #444; padding-top: 10px;">
@@ -464,7 +552,7 @@
       <label>رقم الهاتف:</label>
       <input type="text" id="customer-phone" placeholder="رقم الموبايل للتواصل" required>
       
-      <label>طريقة الدفع الفضلة:</label>
+      <label>طريقة الدفع المفضلة:</label>
       <select id="payment-method">
         <option value="كاش عند الاستلام">كاش عند الاستلام</option>
         <option value="إنستا باي (InstaPay)">إنستا باي (InstaPay)</option>
@@ -479,11 +567,9 @@
   </footer>
 
 <script>
-// مصفوفة لتخزين السلة ككائنات تحتوي على الاسم، السعر، والكمية
 let cart = [];
 let total = 0;
 
-// فتح وغلق السلة
 function toggleCart() {
   const overlay = document.getElementById("cartOverlay");
   if (overlay.style.display === "flex") {
@@ -493,9 +579,7 @@ function toggleCart() {
   }
 }
 
-// دالة إضافة منتج أو زيادة كميته
 function addToCart(name, price) {
-  // التحقق مما إذا كان المنتج موجود مسبقاً في السلة
   let existingItem = cart.find(item => item.name === name);
   
   if (existingItem) {
@@ -512,11 +596,9 @@ function addToCart(name, price) {
   updateCartUI();
 }
 
-// زيادة الكمية من داخل السلة
 function changeQty(index, amount) {
   cart[index].qty += amount;
   
-  // إذا قلت الكمية عن 1 يتم حذف المنتج نهائياً من السلة
   if (cart[index].qty <= 0) {
     cart.splice(index, 1);
   }
@@ -525,7 +607,6 @@ function changeQty(index, amount) {
   updateCartUI();
 }
 
-// حساب الإجمالي الكلي للأسعار والكميات
 function calculateTotal() {
   total = 0;
   cart.forEach(item => {
@@ -533,7 +614,6 @@ function calculateTotal() {
   });
 }
 
-// تحديث الواجهة للسلة والزر العائم
 function updateCartUI() {
   const cartItems = document.getElementById("cart-items");
   cartItems.innerHTML = "";
@@ -558,12 +638,10 @@ function updateCartUI() {
     });
   }
 
-  // تحديث الأرقام في السلة والزر السفلي المقلص
   document.getElementById("total").innerText = total;
   document.getElementById("btn-total").innerText = total;
 }
 
-// دالة إرسال الطلب للواتساب مع طريقة الدفع
 function sendWhatsAppOrder() {
   if (cart.length === 0) {
     alert("السلة فارغة! أضف بعض الحلويات أولاً.");
