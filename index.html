@@ -24,7 +24,7 @@
     *{box-sizing:border-box}
     body{
       margin:0; font-family: "Cairo", system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background:var(--black); color:#fff; padding-bottom: 450px; /* مساحة مخصصة لعدم تغطية السلة للمحتوى */
+      background:var(--black); color:#fff; padding-bottom: 80px;
     }
     header{
       padding:28px 16px; text-align:center; border-bottom:1px solid #1f1f1f;
@@ -74,22 +74,52 @@
     }
     html{ scroll-behavior: smooth; }
 
-    /* تنسيق صندوق السلة المعلق */
-    .cart-box{
-      position:fixed; right:15px; bottom:15px; background:#141414;
-      border:2px solid var(--gold); width:310px; max-height:420px;
-      overflow:auto; border-radius:16px; padding:15px; z-index:999;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    /* زر السلة العائم الصغير الاسفل الشاشة */
+    .cart-toggle-btn {
+      position: fixed; right: 16px; bottom: 16px; z-index: 999;
+      background: var(--gold); color: #000; font-weight: 700;
+      padding: 14px 20px; border-radius: 999px; cursor: pointer;
+      box-shadow: 0 10px 30px rgba(212,175,55,.4); border: none; font-size: 16px;
     }
-    .cart-box h3{ margin-top:0; color:var(--gold); text-align: center;}
-    .cart-box input {
-      width: 100%; padding: 8px; margin-bottom: 8px; background: #222;
-      border: 1px solid #444; color: #fff; border-radius: 8px; font-family: inherit;
+
+    /* نافذة السلة المخفية وتظهر عند الضغط */
+    .cart-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); z-index: 1000; display: none;
+      justify-content: center; align-items: center; padding: 16px;
+    }
+    .cart-box{
+      background:#141414; border:2px solid var(--gold); width:400px; max-width: 100%;
+      max-height:85vh; overflow:auto; border-radius:16px; padding:20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7); position: relative;
+    }
+    .close-cart {
+      position: absolute; left: 15px; top: 15px; background: none;
+      border: none; color: #ff4d4d; font-size: 20px; font-weight: bold; cursor: pointer;
+    }
+    .cart-box h3{ margin-top:0; margin-bottom: 20px; color:var(--gold); text-align: center;}
+    .cart-box input, .cart-box select {
+      width: 100%; padding: 10px; margin-bottom: 12px; background: #222;
+      border: 1px solid #444; color: #fff; border-radius: 8px; font-family: inherit; font-size: 14px;
+    }
+    .cart-box label {
+      display: block; margin-bottom: 6px; font-size: 13px; color: #bbb;
     }
     .cart-item{
       display: flex; justify-content: space-between; align-items: center;
-      margin:10px 0; border-bottom:1px solid #333; padding-bottom:5px; font-size: 14px;
+      margin:12px 0; border-bottom:1px solid #333; padding-bottom:8px; font-size: 14px;
     }
+    .qty-controls {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .qty-btn {
+      background: #222; color: #fff; border: 1px solid var(--gold);
+      width: 28px; height: 28px; border-radius: 6px; cursor: pointer;
+      font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--gold); color: #000; }
+    .item-qty { font-weight: bold; min-width: 20px; text-align: center; }
+    
     .add-btn{
       background:var(--gold); color:#000; border:none; padding:8px 12px;
       border-radius:10px; cursor:pointer; font-weight:bold; margin-top:8px; width: 100%;
@@ -98,12 +128,11 @@
     .add-btn:hover { background: #bfae6a; }
     .send-order{
       width:100%; background:#25D366; color:white; border:none;
-      padding:12px; border-radius:12px; font-size:16px; cursor:pointer;
-      margin-top:10px; font-weight: bold;
+      padding:14px; border-radius:12px; font-size:16px; cursor:pointer;
+      margin-top:15px; font-weight: bold;
     }
     @media (max-width:480px){ 
       img, .no-img{height:140px} 
-      .cart-box { width: calc(100% - 30px); left: 15px; max-height: 320px; }
     }
   </style>
 </head>
@@ -409,20 +438,40 @@
 
   </main>
 
-  <!-- صندوق سلة المشتريات الثابت -->
-  <div class="cart-box">
-    <h3>سلة المشتريات</h3>
-    
-    <!-- حقول بيانات العميل اللازمة لإرسال الطلب عبر الجافا سكريبت -->
-    <input type="text" id="customer-name" placeholder="اسم العميل" required>
-    <input type="text" id="customer-address" placeholder="العنوان بالتفصيل" required>
-    <input type="text" id="customer-phone" placeholder="رقم الهاتف" required>
-    
-    <div id="cart-items"></div>
-    <p style="font-weight: bold; margin-top: 10px; text-align: center;">
-      الإجمالي: <span id="total">0</span> ج
-    </p>
-    <button class="send-order" onclick="sendWhatsAppOrder()">إرسال الطلب عبر واتساب</button>
+  <!-- زر السلة العائم الصغير -->
+  <button class="cart-toggle-btn" onclick="toggleCart()">🛒 السلة (<span id="btn-total">0</span> ج)</button>
+
+  <!-- الواجهة الخلفية المعتمة والنافذة المنبثقة للسلة -->
+  <div class="cart-overlay" id="cartOverlay">
+    <div class="cart-box">
+      <button class="close-cart" onclick="toggleCart()">✕ إغلاق</button>
+      <h3>سلة المشتريات</h3>
+      
+      <!-- المنتجات المضافة ستظهر هنا -->
+      <div id="cart-items"></div>
+      
+      <p style="font-weight: bold; margin: 15px 0; text-align: center; font-size: 18px; border-top: 1px dashed #444; padding-top: 10px;">
+        الإجمالي: <span id="total">0</span> ج
+      </p>
+
+      <!-- بيانات العميل -->
+      <label>اسم العميل:</label>
+      <input type="text" id="customer-name" placeholder="اكتب اسمك الثلاثي" required>
+      
+      <label>العنوان بالتفصيل:</label>
+      <input type="text" id="customer-address" placeholder="المنطقة - الشارع - رقم العقار" required>
+      
+      <label>رقم الهاتف:</label>
+      <input type="text" id="customer-phone" placeholder="رقم الموبايل للتواصل" required>
+      
+      <label>طريقة الدفع الفضلة:</label>
+      <select id="payment-method">
+        <option value="كاش عند الاستلام">كاش عند الاستلام</option>
+        <option value="إنستا باي (InstaPay)">إنستا باي (InstaPay)</option>
+      </select>
+
+      <button class="send-order" onclick="sendWhatsAppOrder()">تأكيد وإرسال الطلب عبر واتساب</button>
+    </div>
   </div>
 
   <footer>
@@ -430,71 +479,120 @@
   </footer>
 
 <script>
+// مصفوفة لتخزين السلة ككائنات تحتوي على الاسم، السعر، والكمية
 let cart = [];
 let total = 0;
 
-function addToCart(name, price) {
-  cart.push({
-    name: name,
-    price: price
-  });
-
-  total += price;
-  updateCart();
+// فتح وغلق السلة
+function toggleCart() {
+  const overlay = document.getElementById("cartOverlay");
+  if (overlay.style.display === "flex") {
+    overlay.style.display = "none";
+  } else {
+    overlay.style.display = "flex";
+  }
 }
 
-function updateCart() {
+// دالة إضافة منتج أو زيادة كميته
+function addToCart(name, price) {
+  // التحقق مما إذا كان المنتج موجود مسبقاً في السلة
+  let existingItem = cart.find(item => item.name === name);
+  
+  if (existingItem) {
+    existingItem.qty += 1;
+  } else {
+    cart.push({
+      name: name,
+      price: price,
+      qty: 1
+    });
+  }
+
+  calculateTotal();
+  updateCartUI();
+}
+
+// زيادة الكمية من داخل السلة
+function changeQty(index, amount) {
+  cart[index].qty += amount;
+  
+  // إذا قلت الكمية عن 1 يتم حذف المنتج نهائياً من السلة
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+  
+  calculateTotal();
+  updateCartUI();
+}
+
+// حساب الإجمالي الكلي للأسعار والكميات
+function calculateTotal() {
+  total = 0;
+  cart.forEach(item => {
+    total += (item.price * item.qty);
+  });
+}
+
+// تحديث الواجهة للسلة والزر العائم
+function updateCartUI() {
   const cartItems = document.getElementById("cart-items");
   cartItems.innerHTML = "";
 
-  cart.forEach((item, index) => {
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <p>${item.name} - ${item.price} ج</p>
-        <button onclick="removeFromCart(${index})" style="
-          background:red; color:white; border:none;
-          padding:5px 10px; border-radius:8px; cursor:pointer;
-        ">حذف</button>
-      </div>
-    `;
-  });
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<p style='text-align:center; color:#888;'>السلة فارغة حالياً</p>";
+  } else {
+    cart.forEach((item, index) => {
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          <div>
+            <p style="margin:0; font-weight:bold;">${item.name}</p>
+            <p style="margin:4px 0 0; color:#bfae6a;">${item.price * item.qty} ج (${item.qty} × ${item.price})</p>
+          </div>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+            <span class="item-qty">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+          </div>
+        </div>
+      `;
+    });
+  }
 
+  // تحديث الأرقام في السلة والزر السفلي المقلص
   document.getElementById("total").innerText = total;
+  document.getElementById("btn-total").innerText = total;
 }
 
-function removeFromCart(index) {
-  total -= cart[index].price;
-  cart.splice(index, 1);
-  updateCart();
-}
-
+// دالة إرسال الطلب للواتساب مع طريقة الدفع
 function sendWhatsAppOrder() {
   if (cart.length === 0) {
-    alert("السلة فارغة");
+    alert("السلة فارغة! أضف بعض الحلويات أولاً.");
     return;
   }
 
   let customerName = document.getElementById("customer-name").value.trim();
   let customerAddress = document.getElementById("customer-address").value.trim();
   let customerPhone = document.getElementById("customer-phone").value.trim();
+  let paymentMethod = document.getElementById("payment-method").value;
 
   if (customerName === "" || customerAddress === "" || customerPhone === "") {
-    alert("من فضلك اكتب الاسم والعنوان ورقم الهاتف بالكامل داخل السلة أولاً");
+    alert("من فضلك اكتب الاسم والعنوان ورقم الهاتف بالكامل لإتمام الطلب");
     return;
   }
 
   let message =
-    "طلب جديد من الموقع%0A%0A" +
-    "الاسم: " + customerName + "%0A" +
-    "العنوان: " + customerAddress + "%0A" +
-    "رقم الهاتف: " + customerPhone + "%0A%0A" +
-    "الطلبات:%0A";
+    "🚨 *طلب جديد من الموقع* 🚨%0A%0A" +
+    "👤 *الاسم:* " + customerName + "%0A" +
+    "📍 *العنوان:* " + customerAddress + "%0A" +
+    "📞 *رقم الهاتف:* " + customerPhone + "%0A" +
+    "💳 *طريقة الدفع:* " + paymentMethod + "%0A%0A" +
+    "🛒 *الطلبات:*%0A";
 
   cart.forEach(item => {
-    message += "- " + item.name + " (" + item.price + " ج)%0A";
+    message += "- " + item.name + " [العدد: " + item.qty + "] -> (" + (item.price * item.qty) + " ج)%0A";
   });
 
-  message += "%0Aالإجمالي: " + total + " ج";
+  message += "%0A💰 *الإجمالي الكلي:* " + total + " ج";
 
   window.open("https://wa.me/201050225446?text=" + message, "_blank");
 }
