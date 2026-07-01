@@ -748,22 +748,56 @@ function filterProducts() {
       }
     });
 
-    // لو القسم ميهوش أي منتج يطابق البحث، نخفي عنوان القسم بالكامل
-    if (visibleProductsInSection === 0 && searchInput !== "") {
-      section.style.display = "none";
+    // دالة الفلترة والبحث الذكي المعدلة
+function filterProducts() {
+  const searchInput = document.getElementById("searchInput").value.toLowerCase().trim();
+  const products = document.querySelectorAll(".product");
+  const noResults = document.getElementById("noResults");
+  
+  let totalVisibleProducts = 0;
+
+  // 1. فحص كل منتج بشكل فردي
+  products.forEach(product => {
+    // هيجيب اسم المنتج سواء واخد كلاس أو مكتوب جوه وسم p على طول
+    const nameElement = product.querySelector(".product-name") || product.querySelector("p");
+    const productName = nameElement ? nameElement.innerText.toLowerCase() : "";
+    
+    if (productName.includes(searchInput)) {
+      product.style.display = "block"; // إظهار المنتج لو مطابق
+      totalVisibleProducts++;
     } else {
-      section.style.display = "block";
+      product.style.display = "none";  // إخفاء المنتج لو مش مطابق
     }
   });
 
-  // إظهار رسالة "لم نجد نتائج" لو مفيش أي حاجة مطابقة
+  // 2. فحص الأقسام (العناوين h2) وإخفاء القسم لو كل اللي جواه مخفي
+  const sections = document.querySelectorAll("main .wrap > div, .category-section");
+  sections.forEach(section => {
+    const sectionProducts = section.querySelectorAll(".product");
+    if (sectionProducts.length > 0) {
+      // نعد كام منتج ظاهر جوه القسم ده
+      let visibleInThisSection = 0;
+      sectionProducts.forEach(p => {
+        if (p.style.display !== "none") visibleInThisSection++;
+      });
+
+      // لو مفيش ولا منتج ظاهر جوه القسم والمسخدم كاتب حاجة، نخفي القسم كله بالعنوان
+      if (visibleInThisSection === 0 && searchInput !== "") {
+        section.style.display = "none";
+      } else {
+        section.style.display = "block";
+      }
+    }
+  });
+
+  // 3. إظهار رسالة "لم نجد نتائج" لو مفيش أي منتج في الصفحة كلها مطابق
   if (totalVisibleProducts === 0 && searchInput !== "") {
     noResults.style.display = "block";
   } else {
     noResults.style.display = "none";
   }
 }
-  
+    
 </script>
 </body>
 </html>
