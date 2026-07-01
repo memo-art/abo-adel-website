@@ -129,6 +129,49 @@
     @media (max-width:480px){ 
       img, .no-img{height:140px} 
     }
+   /* ستايل خانة البحث المخصص للموبايل */
+.search-wrapper {
+  max-width: 500px;
+  margin: 10px auto 25px auto;
+  padding: 0 16px;
+  position: relative;
+}
+.search-input {
+  width: 100%;
+  padding: 14px 45px 14px 16px;
+  background: var(--card);
+  border: 1px solid #222;
+  border-radius: 50px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: right;
+}
+.search-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+}
+.search-icon {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 18px;
+  pointer-events: none;
+}
+/* رسالة عدم وجود نتائج */
+.no-results-msg {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  margin: 40px 0;
+  display: none;
+                 }
+      
   </style>
 </head>
 <body>
@@ -149,6 +192,11 @@
     <a href="#baked">مخبوزات</a>
     <a href="#chocolate">شوكولاتات</a>
   </div>
+  <div class="search-wrapper">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن حلوى، تورتة، أو مخبوزات..." oninput="filterProducts()">
+  </div>
+  
 
   <main class="wrap">
     
@@ -674,6 +722,48 @@ function sendWhatsAppOrder() {
 
   window.open("https://wa.me/201050225446?text=" + message, "_blank");
 }
+  // دالة الفلترة والبحث الذكي
+function filterProducts() {
+  const searchInput = document.getElementById("searchInput").value.toLowerCase().trim();
+  const products = document.querySelectorAll(".product");
+  const sections = document.querySelectorAll(".category-section");
+  const noResults = document.getElementById("noResults");
+  
+  let totalVisibleProducts = 0;
+
+  // فحص كل قسم على حدة
+  sections.forEach(section => {
+    const sectionProducts = section.querySelectorAll(".product");
+    let visibleProductsInSection = 0;
+
+    sectionProducts.forEach(product => {
+      const productName = product.querySelector(".product-name").innerText.toLowerCase();
+      
+      if (productName.includes(searchInput)) {
+        product.style.display = "block";
+        visibleProductsInSection++;
+        totalVisibleProducts++;
+      } else {
+        product.style.display = "none";
+      }
+    });
+
+    // لو القسم ميهوش أي منتج يطابق البحث، نخفي عنوان القسم بالكامل
+    if (visibleProductsInSection === 0 && searchInput !== "") {
+      section.style.display = "none";
+    } else {
+      section.style.display = "block";
+    }
+  });
+
+  // إظهار رسالة "لم نجد نتائج" لو مفيش أي حاجة مطابقة
+  if (totalVisibleProducts === 0 && searchInput !== "") {
+    noResults.style.display = "block";
+  } else {
+    noResults.style.display = "none";
+  }
+}
+  
 </script>
 </body>
 </html>
