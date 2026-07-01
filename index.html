@@ -129,49 +129,6 @@
     @media (max-width:480px){ 
       img, .no-img{height:140px} 
     }
-   /* ستايل خانة البحث المخصص للموبايل */
-.search-wrapper {
-  max-width: 500px;
-  margin: 10px auto 25px auto;
-  padding: 0 16px;
-  position: relative;
-}
-.search-input {
-  width: 100%;
-  padding: 14px 45px 14px 16px;
-  background: var(--card);
-  border: 1px solid #222;
-  border-radius: 50px;
-  color: #fff;
-  font-family: inherit;
-  font-size: 16px;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  text-align: right;
-}
-.search-input:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
-}
-.search-icon {
-  position: absolute;
-  right: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  font-size: 18px;
-  pointer-events: none;
-}
-/* رسالة عدم وجود نتائج */
-.no-results-msg {
-  text-align: center;
-  color: #888;
-  font-size: 16px;
-  margin: 40px 0;
-  display: none;
-                 }
-      
   </style>
 </head>
 <body>
@@ -192,12 +149,6 @@
     <a href="#baked">مخبوزات</a>
     <a href="#chocolate">شوكولاتات</a>
   </div>
-  <div class="search-wrapper">
-  <span class="search-icon">🔍</span>
-  <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن حلوى، تورتة، أو مخبوزات..." oninput="filterProducts()">
-  </div>
-  <p id="noResults" class="no-results-msg">لا توجد نتائج مطابقة لبحثك 😔</p>
-  
 
   <main class="wrap">
     
@@ -488,4 +439,44 @@
         <img src="images/fruit-cake.jpg" alt="تورته فواكهه">
         <p>تورته فواكهه</p>
         <p class="price">470 ج</p>
-        <button class="add-btn" onclick="addToCart('تو
+        <button class="add-btn" onclick="addToCart('تورته فواكهه', 470)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/half-chocolate-half-fruit-30.jpg" alt="نص شوكولاتة ونص فاكهه ٣٠*٣٠">
+        <p>نص شوكولاتة ونص فاكهه ٣٠*٣٠</p>
+        <p class="price">630 ج</p>
+        <button class="add-btn" onclick="addToCart('نص شوكولاتة ونص فاكهه ٣٠*٣٠', 630)">أضف للسلة</button>
+      </div>
+    </section>
+
+    <!-- قسم المخبوزات -->
+    <h2 id="baked">مخبوزات</h2>
+    <section class="grid">
+      <div class="product">
+        <div class="no-img">الصورة غير متوفرة</div>
+        <p>ميني كرواسون</p>
+        <p class="price">80 ج</p>
+        <button class="add-btn" onclick="addToCart('ميني كرواسون', 80)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <div class="no-img">الصورة غير متوفرة</div>
+        <p>كرواسون ساده ٢ قطعه</p>
+        <p class="price">85 ج</p>
+        <button class="add-btn" onclick="addToCart('كرواسون ساده ٢ قطعه', 85)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/cheese-croissant.jpg" alt="كرواسون جبن">
+        <p>كرواسون جبن ٢ قطعه</p>
+        <p class="price">125 ج</p>
+        <button class="add-btn" onclick="addToCart('كرواسون جبن ٢ قطعه', 125)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <div class="no-img">الصورة غير متوفرة</div>
+        <p>كرواسون نوتيلا ٢ قطعة</p>
+        <p class="price">105 ج</p>
+        <button class="add-btn" onclick="addToCart('كرواسون نوتيلا ٢ قطعة', 105)">أضف للسلة</button>
+      </div>
+      <div class="product">
+        <img src="images/danish-nutella.jpg" alt="دانش نوتيلا">
+        <p>دانش نوتيلا ٢ قطعه</p>
+        <p class="price">12
